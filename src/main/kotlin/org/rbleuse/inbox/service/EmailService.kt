@@ -6,12 +6,14 @@ import org.rbleuse.inbox.domain.EmailListItem
 import org.rbleuse.inbox.domain.pk.EmailListItemKey
 import org.rbleuse.inbox.repository.EmailListItemRepository
 import org.rbleuse.inbox.repository.EmailRepository
+import org.rbleuse.inbox.repository.UnreadEmailStatsRepository
 import org.springframework.stereotype.Service
 
 @Service
 class EmailService(
     private val emailRepository: EmailRepository,
-    private val emailListItemRepository: EmailListItemRepository
+    private val emailListItemRepository: EmailListItemRepository,
+    private val unreadEmailStatsRepository: UnreadEmailStatsRepository
 ) {
 
     fun sendEmail(from: String, to: List<String>, subject: String, body: String) {
@@ -20,15 +22,16 @@ class EmailService(
 
         emailRepository.save(email)
 
-        to.forEach {
+        to.forEach { toId ->
             val emailListItem = EmailListItem(
-                EmailListItemKey(it, "Inbox", email.id), from, to, subject, false
+                EmailListItemKey(toId, "Inbox", email.id), from, to, subject, false
             )
             emailListItemRepository.save(emailListItem)
+            unreadEmailStatsRepository.incrementCounter(toId, "Inbox")
         }
 
         val emailListItem = EmailListItem(
-            EmailListItemKey(from, "Sent Items", email.id), from, to, subject, false
+            EmailListItemKey(from, "Sent Items", email.id), from, to, subject, true
         )
         emailListItemRepository.save(emailListItem)
     }

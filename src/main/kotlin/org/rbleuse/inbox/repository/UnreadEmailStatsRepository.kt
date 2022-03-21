@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository
 interface UnreadEmailStatsRepository : CassandraRepository<UnreadEmailStats, String> {
     fun findAllByUserId(userId: String): List<UnreadEmailStats>
 
-    @Query("update unread_email_stats set unread_count = unread_count + 1 where user_id = ?1 and label = ?2")
+    @Query("update unread_email_stats set unread_count = unread_count + 1 where user_id = ?0 and label = ?1")
     fun incrementCounter(userId: String, label: String)
 
-    @Query("update unread_email_stats set unread_count = unread_count - 1 where user_id = ?1 and label = ?2")
+    @Query("update unread_email_stats set unread_count = unread_count - 1 where user_id = ?0 and label = ?1")
     fun decrementCounter(userId: String, label: String)
 }

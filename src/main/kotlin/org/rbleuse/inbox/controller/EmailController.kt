@@ -3,6 +3,7 @@ package org.rbleuse.inbox.controller
 import org.rbleuse.inbox.repository.EmailRepository
 import org.rbleuse.inbox.service.EmailService
 import org.rbleuse.inbox.service.FolderService
+import org.rbleuse.inbox.service.UnreadEmailStatsService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.OAuth2User
@@ -22,7 +23,8 @@ import java.util.UUID
 class EmailController(
     private val folderService: FolderService,
     private val emailRepository: EmailRepository,
-    private val emailService: EmailService
+    private val emailService: EmailService,
+    private val unreadEmailStatsService: UnreadEmailStatsService
 ) {
 
     @GetMapping("/email/{id}")
@@ -38,6 +40,7 @@ class EmailController(
         val email = emailRepository.findByIdOrNull(id) ?: return "inbox-page"
         model.addAttribute("email", email)
         model.addAttribute("toIds", email.to.joinToString())
+        model.addAttribute("folderToUnreadCounts", unreadEmailStatsService.mapFolderToUnreadCount(userId))
 
         return "email-page"
     }
@@ -51,6 +54,7 @@ class EmailController(
         val userId: String = principal.getAttribute("login")!!
         model.addAttribute("userFolders", folderService.fetchUserFolders(userId))
         model.addAttribute("defaultFolders", folderService.fetchDefaultFolders(userId))
+        model.addAttribute("folderToUnreadCounts", unreadEmailStatsService.mapFolderToUnreadCount(userId))
 
         to?.let {
             val uniqueIds = splitIds(it)

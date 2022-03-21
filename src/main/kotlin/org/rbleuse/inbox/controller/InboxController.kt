@@ -4,8 +4,8 @@ import com.datastax.oss.driver.api.core.uuid.Uuids
 import org.ocpsoft.prettytime.PrettyTime
 import org.rbleuse.inbox.domain.Folder
 import org.rbleuse.inbox.repository.EmailListItemRepository
-import org.rbleuse.inbox.repository.UnreadEmailStatsRepository
 import org.rbleuse.inbox.service.FolderService
+import org.rbleuse.inbox.service.UnreadEmailStatsService
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Controller
@@ -22,7 +22,7 @@ import java.util.Locale
 class InboxController(
     private val folderService: FolderService,
     private val emailListItemRepository: EmailListItemRepository,
-    private val unreadEmailStatsRepository: UnreadEmailStatsRepository
+    private val unreadEmailStatsService: UnreadEmailStatsService
 ) {
 
     @GetMapping("/")
@@ -45,6 +45,7 @@ class InboxController(
 
         model.addAttribute("userFolders", folderService.fetchUserFolders(userId))
         model.addAttribute("defaultFolders", folderService.fetchDefaultFolders(userId))
+        model.addAttribute("folderToUnreadCounts", unreadEmailStatsService.mapFolderToUnreadCount(userId))
 
         val prettyTime = PrettyTime(Locale.FRENCH)
 
