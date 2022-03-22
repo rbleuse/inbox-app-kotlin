@@ -4,12 +4,15 @@ spring:
       keyspace-name: main
       username: <username>
       password: <password>
-      schema-action: recreate-drop-unused
+      schema-action: none
       request:
         timeout: 20s
       connection:
         connect-timeout: 10s
         init-query-timeout: 20s
+      migration:
+        locations:
+          - cql
   security:
     oauth2:
       client:

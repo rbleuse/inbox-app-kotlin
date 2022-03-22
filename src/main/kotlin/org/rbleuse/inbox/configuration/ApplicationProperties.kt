@@ -9,3 +9,9 @@ import java.io.File
 data class DataStaxAstraProperties(
     val secureConnectBundle: File
 )
+
+@ConstructorBinding
+@ConfigurationProperties("spring.data.cassandra.migration")
+data class CassandraMigrationProperties(
+    val locations: List<String>
+)
