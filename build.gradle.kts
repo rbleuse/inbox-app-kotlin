@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.0.0-M3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.7.0-RC"
+    kotlin("jvm") version "1.7.0-RC2"
     kotlin("plugin.spring") version "1.7.0-RC2"
     id("org.jmailen.kotlinter") version "3.10.0"
 }
