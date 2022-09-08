@@ -26,7 +26,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.ocpsoft.prettytime:prettytime:5.0.3.Final")
+    implementation("org.ocpsoft.prettytime:prettytime:5.0.4.Final")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
