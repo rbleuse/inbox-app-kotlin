@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.spring") version "1.8.10"
-    id("org.jmailen.kotlinter") version "3.13.0"
+    id("com.ncorti.ktfmt.gradle") version "0.12.0"
 }
 
 group = "org.rbleuse"
@@ -14,7 +14,6 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.spring.io/milestone") }
 }
 
 dependencies {
@@ -25,7 +24,6 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.ocpsoft.prettytime:prettytime:5.0.6.Final")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -44,6 +42,7 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.check {
-    dependsOn("installKotlinterPrePushHook")
+ktfmt {
+    // KotlinLang style - 4 space indentation - From kotlinlang.org/docs/coding-conventions.html
+    dropboxStyle()
 }
