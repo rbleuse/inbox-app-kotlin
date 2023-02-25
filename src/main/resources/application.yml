@@ -1,15 +1,4 @@
 spring:
-  data:
-    cassandra:
-      keyspace-name: main
-      username: <username>
-      password: <password>
-      schema-action: recreate-drop-unused
-      request:
-        timeout: 20s
-      connection:
-        connect-timeout: 10s
-        init-query-timeout: 20s
   security:
     oauth2:
       client:
@@ -17,6 +6,16 @@ spring:
           github:
             client-id: <clientID>
             client-secret: <clientSecret>
+  cassandra:
+    keyspace-name: main
+    username: <username>
+    password: <password>
+    schema-action: recreate-drop-unused
+    request:
+      timeout: 20s
+    connection:
+      connect-timeout: 10s
+      init-query-timeout: 20s
 
 datastax.astra:
   secure-connect-bundle: secure-connect.zip
