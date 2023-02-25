@@ -14,7 +14,7 @@ constructor(
         return listOf(
             Folder(userId, "Inbox", "blue"),
             Folder(userId, "Sent Items", "green"),
-            Folder(userId, "Important", "red"),
+            Folder(userId, "Important", "red")
         )
     }
 

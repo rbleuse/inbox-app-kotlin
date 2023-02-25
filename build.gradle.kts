@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.spring") version "1.8.10"
-    id("com.ncorti.ktfmt.gradle") version "0.12.0"
+    id("org.jmailen.kotlinter") version "3.13.0"
 }
 
 group = "org.rbleuse"
@@ -42,7 +42,6 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-ktfmt {
-    // KotlinLang style - 4 space indentation - From kotlinlang.org/docs/coding-conventions.html
-    dropboxStyle()
+tasks.check {
+    dependsOn("installKotlinterPrePushHook")
 }
