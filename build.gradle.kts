@@ -24,7 +24,7 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.ocpsoft.prettytime:prettytime:5.0.6.Final")
+    implementation("org.ocpsoft.prettytime:prettytime:5.0.7.Final")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
