@@ -7,5 +7,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface EmailListItemRepository : CassandraRepository<EmailListItem, EmailListItemKey> {
-    fun findAllByKey_UserIdAndKey_label(userId: String, label: String): List<EmailListItem>
+    fun findAllByKeyUserIdAndKeyLabel(
+        userId: String,
+        label: String,
+    ): List<EmailListItem>
 }

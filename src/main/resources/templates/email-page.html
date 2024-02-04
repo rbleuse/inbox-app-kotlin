@@ -60,10 +60,10 @@
             <a href="/compose" class="btn btn-primary">Compose message</a>
         </div>
         <div
-                th:insert="components/folder-list :: folder-list (panelName = 'Folders', folders = ${defaultFolders}, folderToUnreadCounts = ${folderToUnreadCounts})"
+                th:insert="~{components/folder-list :: folder-list (panelName = 'Folders', folders = ${defaultFolders}, folderToUnreadCounts = ${folderToUnreadCounts})}"
         ></div>
         <div
-                th:insert="components/folder-list :: folder-list (panelName = 'My folders', folders = ${userFolders}, folderToUnreadCounts = ${folderToUnreadCounts})"
+                th:insert="~{components/folder-list :: folder-list (panelName = 'My folders', folders = ${userFolders}, folderToUnreadCounts = ${folderToUnreadCounts})}"
         ></div>
     </nav>
 
@@ -99,7 +99,7 @@
                 </div> -->
 
 
-                <a th:href="@{'/compose?to=' + ${email.from}}" type="button" class="btn btn-primary">Reply</button>
+                <a th:href="@{'/compose?to=' + ${email.from}}" type="button" class="btn btn-primary">Reply</a>
                     <a th:href="@{'/compose?to=' + ${email.from} + ',' + ${toIds}}" type="button" class="btn btn-primary">Reply All</a>
                     <!-- <form style="display:inline-block;"><select id="moveToFolder" name="moveToFolder" class="form-select" aria-label="Move to folder">
                       <option th:each="folder : ${defaultFolders}" th:text="${folder.label}">Status</option>

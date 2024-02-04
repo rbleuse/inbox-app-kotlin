@@ -9,14 +9,11 @@ import org.springframework.data.cassandra.core.mapping.Table
 
 @Table("unread_email_stats")
 data class UnreadEmailStats(
-
     @PrimaryKeyColumn(name = "user_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     val userId: String,
-
     @PrimaryKeyColumn(name = "label", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
     val label: String,
-
     @field:CassandraType(type = Name.COUNTER)
     @field:Column("unread_count")
-    val unreadCount: Int
+    val unreadCount: Int,
 )

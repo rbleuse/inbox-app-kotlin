@@ -9,10 +9,8 @@ import java.util.UUID
 data class EmailListItemKey(
     @PrimaryKeyColumn(name = "user_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     val userId: String,
-
     @PrimaryKeyColumn(name = "label", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
     val label: String,
-
     @PrimaryKeyColumn(name = "created_time_uuid", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
-    val timeUuid: UUID
+    val timeUuid: UUID,
 )

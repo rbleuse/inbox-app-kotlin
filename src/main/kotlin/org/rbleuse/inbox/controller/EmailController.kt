@@ -24,11 +24,15 @@ class EmailController(
     private val folderService: FolderService,
     private val emailRepository: EmailRepository,
     private val emailService: EmailService,
-    private val unreadEmailStatsService: UnreadEmailStatsService
+    private val unreadEmailStatsService: UnreadEmailStatsService,
 ) {
-
     @GetMapping("/email/{id}")
-    fun homePage(@PathVariable id: UUID, @AuthenticationPrincipal principal: OAuth2User?, model: Model): String {
+    fun homePage(
+        @PathVariable id: UUID,
+        @RequestParam folder: String,
+        @AuthenticationPrincipal principal: OAuth2User?,
+        model: Model,
+    ): String {
         if (null == principal || !StringUtils.hasText(principal.getAttribute("login"))) {
             return "index"
         }
@@ -46,7 +50,11 @@ class EmailController(
     }
 
     @GetMapping("/compose")
-    fun getComposePage(@RequestParam(required = false) to: String?, @AuthenticationPrincipal principal: OAuth2User?, model: Model): String {
+    fun getComposePage(
+        @RequestParam(required = false) to: String?,
+        @AuthenticationPrincipal principal: OAuth2User?,
+        model: Model,
+    ): String {
         if (null == principal || !StringUtils.hasText(principal.getAttribute("login"))) {
             return "index"
         }
@@ -65,13 +73,13 @@ class EmailController(
     }
 
     private fun splitIds(string: String): List<String> {
-        return string.split(",").stream().map { it.strip() }.filter { it.isNotEmpty() }.distinct().toList()
+        return string.split(",").stream().map { it.trim() }.filter { it.isNotEmpty() }.distinct().toList()
     }
 
     @PostMapping("/sendEmail")
     fun sendEmail(
         @RequestBody formData: MultiValueMap<String, String>,
-        @AuthenticationPrincipal principal: OAuth2User?
+        @AuthenticationPrincipal principal: OAuth2User?,
     ): ModelAndView {
         if (null != principal && StringUtils.hasText(principal.getAttribute("login"))) {
             val userId: String = principal.getAttribute("login")!!

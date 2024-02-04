@@ -10,8 +10,14 @@ interface UnreadEmailStatsRepository : CassandraRepository<UnreadEmailStats, Str
     fun findAllByUserId(userId: String): List<UnreadEmailStats>
 
     @Query("update unread_email_stats set unread_count = unread_count + 1 where user_id = ?0 and label = ?1")
-    fun incrementCounter(userId: String, label: String)
+    fun incrementCounter(
+        userId: String,
+        label: String,
+    )
 
     @Query("update unread_email_stats set unread_count = unread_count - 1 where user_id = ?0 and label = ?1")
-    fun decrementCounter(userId: String, label: String)
+    fun decrementCounter(
+        userId: String,
+        label: String,
+    )
 }

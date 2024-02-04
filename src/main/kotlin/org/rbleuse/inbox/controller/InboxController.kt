@@ -22,14 +22,13 @@ import java.util.Locale
 class InboxController(
     private val folderService: FolderService,
     private val emailListItemRepository: EmailListItemRepository,
-    private val unreadEmailStatsService: UnreadEmailStatsService
+    private val unreadEmailStatsService: UnreadEmailStatsService,
 ) {
-
     @GetMapping("/")
     fun homePage(
         @RequestParam(required = false) folder: String?,
         @AuthenticationPrincipal principal: OAuth2User?,
-        model: Model
+        model: Model,
     ): String {
         if (null == principal || !StringUtils.hasText(principal.getAttribute("login"))) {
             return "index"
@@ -49,13 +48,14 @@ class InboxController(
 
         val prettyTime = PrettyTime(Locale.FRENCH)
 
-        val selectedFolder = if (null != folder && StringUtils.hasText(folder)) {
-            folder
-        } else {
-            "Inbox"
-        }
+        val selectedFolder =
+            if (null != folder && StringUtils.hasText(folder)) {
+                folder
+            } else {
+                "Inbox"
+            }
 
-        val emailList = emailListItemRepository.findAllByKey_UserIdAndKey_label(userId, selectedFolder)
+        val emailList = emailListItemRepository.findAllByKeyUserIdAndKeyLabel(userId, selectedFolder)
         emailList.forEach {
             val emailDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Uuids.unixTimestamp(it.key.timeUuid)), ZoneId.systemDefault())
             it.agoTimeString = prettyTime.format(emailDateTime)

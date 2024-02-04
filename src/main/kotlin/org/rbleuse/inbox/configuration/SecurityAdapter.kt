@@ -11,7 +11,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 @Configuration
 class SecurityAdapter {
-
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http {

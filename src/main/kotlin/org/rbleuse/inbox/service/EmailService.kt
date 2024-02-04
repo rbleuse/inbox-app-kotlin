@@ -13,33 +13,39 @@ import org.springframework.stereotype.Service
 class EmailService(
     private val emailRepository: EmailRepository,
     private val emailListItemRepository: EmailListItemRepository,
-    private val unreadEmailStatsRepository: UnreadEmailStatsRepository
+    private val unreadEmailStatsRepository: UnreadEmailStatsRepository,
 ) {
-
-    fun sendEmail(from: String, to: List<String>, subject: String, body: String) {
+    fun sendEmail(
+        from: String,
+        to: List<String>,
+        subject: String,
+        body: String,
+    ) {
         val email = Email(Uuids.timeBased(), from, to, subject, body)
 
         emailRepository.save(email)
 
         to.forEach { toId ->
-            val emailListItem = EmailListItem(
-                EmailListItemKey(toId, "Inbox", email.id),
-                from,
-                to,
-                subject,
-                false
-            )
+            val emailListItem =
+                EmailListItem(
+                    EmailListItemKey(toId, "Inbox", email.id),
+                    from,
+                    to,
+                    subject,
+                    false,
+                )
             emailListItemRepository.save(emailListItem)
             unreadEmailStatsRepository.incrementCounter(toId, "Inbox")
         }
 
-        val emailListItem = EmailListItem(
-            EmailListItemKey(from, "Sent Items", email.id),
-            from,
-            to,
-            subject,
-            true
-        )
+        val emailListItem =
+            EmailListItem(
+                EmailListItemKey(from, "Sent Items", email.id),
+                from,
+                to,
+                subject,
+                true,
+            )
         emailListItemRepository.save(emailListItem)
     }
 }

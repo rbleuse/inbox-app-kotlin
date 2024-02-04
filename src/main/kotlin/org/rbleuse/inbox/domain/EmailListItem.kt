@@ -8,21 +8,16 @@ import org.springframework.data.cassandra.core.mapping.Table
 
 @Table("messages_by_user_folder")
 data class EmailListItem(
-
     @PrimaryKey
     val key: EmailListItemKey,
-
     @CassandraType(type = Name.TEXT)
     val from: String,
-
     @CassandraType(type = Name.LIST, typeArguments = [Name.TEXT])
     val to: List<String>,
-
     @CassandraType(type = Name.TEXT)
     val subject: String,
-
     @CassandraType(type = Name.BOOLEAN)
-    val isRead: Boolean
+    val isRead: Boolean,
 ) {
     @field:Transient
     lateinit var agoTimeString: String

@@ -1,0 +1,9 @@
+services:
+  cassandra:
+    image: 'cassandra:5.0'
+    environment:
+      - 'CASSANDRA_DC=datacenter1'
+      - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
+    ports:
+      - '9042'
+

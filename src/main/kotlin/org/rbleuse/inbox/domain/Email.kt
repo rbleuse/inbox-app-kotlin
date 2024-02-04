@@ -10,20 +10,15 @@ import java.util.UUID
 
 @Table("messages")
 data class Email(
-
     @Id
     @PrimaryKeyColumn(ordinal = 0, type = PrimaryKeyType.CLUSTERED)
     val id: UUID,
-
     @CassandraType(type = Name.TEXT)
     val from: String,
-
     @CassandraType(type = Name.LIST, typeArguments = [Name.TEXT])
     val to: List<String>,
-
     @CassandraType(type = Name.TEXT)
     val subject: String,
-
     @CassandraType(type = Name.TEXT)
-    val body: String
+    val body: String,
 )

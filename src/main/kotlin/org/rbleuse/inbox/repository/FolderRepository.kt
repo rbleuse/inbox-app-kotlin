@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface FolderRepository : CassandraRepository<Folder, String> {
-
     fun findAllByUserId(userId: String): List<Folder>
 }

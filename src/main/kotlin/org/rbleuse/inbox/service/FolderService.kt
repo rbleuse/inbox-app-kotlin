@@ -5,16 +5,14 @@ import org.rbleuse.inbox.repository.FolderRepository
 import org.springframework.stereotype.Service
 
 @Service
-class FolderService
-constructor(
-    private val folderRepository: FolderRepository
+class FolderService(
+    private val folderRepository: FolderRepository,
 ) {
-
     fun fetchDefaultFolders(userId: String): List<Folder> {
         return listOf(
             Folder(userId, "Inbox", "blue"),
             Folder(userId, "Sent Items", "green"),
-            Folder(userId, "Important", "red")
+            Folder(userId, "Important", "red"),
         )
     }
 
