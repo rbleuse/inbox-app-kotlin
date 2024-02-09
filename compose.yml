@@ -5,5 +5,5 @@ services:
       - 'CASSANDRA_DC=datacenter1'
       - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
     ports:
-      - '9042'
+      - '9042:9042'
 
