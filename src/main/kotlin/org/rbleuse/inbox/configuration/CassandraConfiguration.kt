@@ -10,13 +10,17 @@ import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecif
 
 @Configuration
 class CassandraConfiguration {
-
     @Bean
-    fun cqlSession(builder: CqlSessionBuilder, properties: CassandraProperties): CqlSession {
+    fun cqlSession(
+        builder: CqlSessionBuilder,
+        properties: CassandraProperties,
+    ): CqlSession {
         // This creates the keyspace on startup
         builder.withKeyspace("system").build().use { session ->
-            session.execute(CreateKeyspaceCqlGenerator
-                .toCql(CreateKeyspaceSpecification.createKeyspace(properties.keyspaceName).ifNotExists()))
+            session.execute(
+                CreateKeyspaceCqlGenerator
+                    .toCql(CreateKeyspaceSpecification.createKeyspace(properties.keyspaceName).ifNotExists()),
+            )
         }
 
         return builder.withKeyspace(properties.keyspaceName).build()

@@ -26,7 +26,7 @@ class InboxController(
 ) {
     @GetMapping("/")
     fun homePage(
-        @RequestParam(required = false) folder: String?,
+        @RequestParam folder: String = "Inbox",
         @AuthenticationPrincipal principal: OAuth2User?,
         model: Model,
     ): String {
@@ -36,33 +36,28 @@ class InboxController(
 
         val userId: String = principal.getAttribute("login")!!
 
-        if (folderService.fetchUserFolders(userId).isEmpty()) {
+        val userFolders = folderService.fetchUserFolders(userId)
+
+        if (userFolders.isEmpty()) {
             folderService.insert(Folder(userId, "Inbox", "blue"))
             folderService.insert(Folder(userId, "Sent", "green"))
             folderService.insert(Folder(userId, "Important", "red"))
         }
 
-        model.addAttribute("userFolders", folderService.fetchUserFolders(userId))
+        model.addAttribute("userFolders", userFolders)
         model.addAttribute("defaultFolders", folderService.fetchDefaultFolders(userId))
         model.addAttribute("folderToUnreadCounts", unreadEmailStatsService.mapFolderToUnreadCount(userId))
 
         val prettyTime = PrettyTime(Locale.FRENCH)
 
-        val selectedFolder =
-            if (null != folder && StringUtils.hasText(folder)) {
-                folder
-            } else {
-                "Inbox"
-            }
-
-        val emailList = emailListItemRepository.findAllByKeyUserIdAndKeyLabel(userId, selectedFolder)
+        val emailList = emailListItemRepository.findAllByKeyUserIdAndKeyLabel(userId, folder)
         emailList.forEach {
             val emailDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Uuids.unixTimestamp(it.key.timeUuid)), ZoneId.systemDefault())
             it.agoTimeString = prettyTime.format(emailDateTime)
         }
 
         model.addAttribute("folderEmails", emailList)
-        model.addAttribute("currentFolder", selectedFolder)
+        model.addAttribute("currentFolder", folder)
 
         return "inbox-page"
     }

@@ -1,6 +1,6 @@
 services:
   cassandra:
-    image: 'cassandra:5.0'
+    image: 'cassandra:5.0-beta1'
     environment:
       - 'CASSANDRA_DC=datacenter1'
       - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
