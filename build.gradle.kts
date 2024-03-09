@@ -1,14 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    val kotlinVersion = "1.9.22"
     id("org.springframework.boot") version "3.3.0-M2"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
     id("org.jmailen.kotlinter") version "4.2.0"
 }
 
-group = "org.rbleuse"
+group = "com.github.rbleuse"
 version = "0.0.1-SNAPSHOT"
 
 java {
