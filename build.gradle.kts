@@ -6,7 +6,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
-    id("org.jmailen.kotlinter") version "4.4.0"
+    id("org.jmailen.kotlinter") version "4.4.1"
 }
 
 group = "com.github.rbleuse"
