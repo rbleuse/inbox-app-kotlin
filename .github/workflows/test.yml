@@ -1,9 +1,6 @@
 name: test
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -13,9 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '21'
-          cache: 'gradle'
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v4
+        with:
+          dependency-graph: generate-and-submit
       - run: chmod +x gradlew && ./gradlew test
