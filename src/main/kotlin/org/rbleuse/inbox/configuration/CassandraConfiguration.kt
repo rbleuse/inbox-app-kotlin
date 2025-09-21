@@ -19,7 +19,7 @@ class CassandraConfiguration {
         builder.withKeyspace("system").build().use { session ->
             session.execute(
                 CreateKeyspaceCqlGenerator
-                    .toCql(CreateKeyspaceSpecification.createKeyspace(properties.keyspaceName).ifNotExists()),
+                    .toCql(CreateKeyspaceSpecification.createKeyspace(properties.keyspaceName!!).ifNotExists()),
             )
         }
 
