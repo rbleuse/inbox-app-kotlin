@@ -45,8 +45,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("org.testcontainers:cassandra")
-    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:testcontainers-cassandra")
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
