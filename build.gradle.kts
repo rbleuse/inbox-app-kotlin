@@ -1,8 +1,6 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     val kotlinVersion = "2.3.20"
-    id("org.springframework.boot") version "4.0.5"
+    id("org.springframework.boot") version "4.1.0-M4"
     id("io.spring.dependency-management") version "1.1.7"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
@@ -13,9 +11,9 @@ group = "com.github.rbleuse"
 version = "0.0.1-SNAPSHOT"
 
 java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(25)
-  }
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
 }
 
 repositories {
