@@ -13,7 +13,7 @@ class InboxApplicationTests {
     companion object {
         @Container
         @ServiceConnection
-        val cassandraContainer: CassandraContainer = CassandraContainer("cassandra:5.0.4")
+        val cassandraContainer: CassandraContainer = CassandraContainer("cassandra:5.0.7")
     }
 
     @Test
