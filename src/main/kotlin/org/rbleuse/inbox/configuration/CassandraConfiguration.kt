@@ -2,7 +2,7 @@ package org.rbleuse.inbox.configuration
 
 import com.datastax.oss.driver.api.core.CqlSession
 import com.datastax.oss.driver.api.core.CqlSessionBuilder
-import org.springframework.boot.cassandra.autoconfigure.CassandraProperties
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.cassandra.core.cql.generator.CreateKeyspaceCqlGenerator
@@ -13,16 +13,16 @@ class CassandraConfiguration {
     @Bean
     fun cqlSession(
         builder: CqlSessionBuilder,
-        properties: CassandraProperties,
+        @Value("\${spring.cassandra.keyspace-name}") keyspaceName: String,
     ): CqlSession {
         // This creates the keyspace on startup
         builder.withKeyspace("system").build().use { session ->
             session.execute(
                 CreateKeyspaceCqlGenerator
-                    .toCql(CreateKeyspaceSpecification.createKeyspace(properties.keyspaceName!!).ifNotExists()),
+                    .toCql(CreateKeyspaceSpecification.createKeyspace(keyspaceName).ifNotExists()),
             )
         }
 
-        return builder.withKeyspace(properties.keyspaceName).build()
+        return builder.withKeyspace(keyspaceName).build()
     }
 }
